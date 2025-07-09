@@ -1,0 +1,24 @@
+body {
+  background-color: #f5fff5;
+  color: #1b5e20;
+}
+
+.navbar-brand {
+  font-weight: bold;
+}
+
+.hero h1 {
+  font-size: 3rem;
+}
+
+.carousel-item img {
+  max-height: 450px;
+  object-fit: cover;
+}
+
+.carousel-caption {
+  background-color: rgba(0, 100, 0, 0.6);
+  padding: 10px;
+  border-radius: 10px;
+}
+ 

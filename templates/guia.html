@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- seção de Hortaliças -->
+<section class="py-5 bg-light text-center">
+  <div class="container">
+    <h1 class="mb-4 text-success">Guia de Plantio: Hortaliças </h1>
+    <p class="mb-5">Aprenda como plantar e cuidar das hortaliças mais cultivadas no Brasil.</p>
+
+    <div class="row">
+
+      <!-- alface -->
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <img src="{% static 'images/alfacer.png' %}" class="card-img-top" alt="Alface">
+          <div class="card-body">
+            <h5 class="card-title text-success">Alface</h5>
+            <p class="card-text">Prefere clima ameno, solo fértil e bem drenado. Plante em local com sombra parcial e regue diariamente.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tomate -->
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <img src="{% static 'images/tomater.png' %}" class="card-img-top" alt="Tomate">
+          <div class="card-body">
+            <h5 class="card-title text-success">Tomate</h5>
+            <p class="card-text">Precisa de bastante sol, solo rico em matéria orgânica e tutoramento. Mantenha a irrigação frequente, mas sem encharcar.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- cebolinha -->
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <img src="{% static 'images/cebolinhar.jpg' %}" class="card-img-top" alt="Cebolinha">
+          <div class="card-body">
+            <h5 class="card-title text-success">Cebolinha</h5>
+            <p class="card-text">Fácil de cultivar, pode ser plantada em vasos. Gosta de sol e solo leve. Corte as folhas com frequência para estimular o crescimento.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- cenoura -->
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <img src="{% static 'images/cenourar.png' %}" class="card-img-top" alt="Cenoura">
+          <div class="card-body">
+            <h5 class="card-title text-success">Cenoura</h5>
+            <p class="card-text">Plante em solo profundo, bem solto e livre de pedras. Requer sol pleno e irrigação regular.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Salsinha -->
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <img src="{% static 'images/salsinhar.png' %}" class="card-img-top" alt="Salsinha">
+          <div class="card-body">
+            <h5 class="card-title text-success">Salsinha</h5>
+            <p class="card-text">Gosta de solo fértil e umidade constante. Cresce melhor em locais de meia-sombra. Pode ser cultivada o ano todo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
