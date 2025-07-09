@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ profile_user.username }} | E-Plantas{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-6 py-12">
+    <!-- Seção do Perfil -->
+    <div class="bg-white p-8 rounded-lg shadow-lg flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
+        <img src="{{ profile_user.profile_picture.url }}" alt="[Foto de perfil de {{ profile_user.username }}]" class="w-32 h-32 rounded-full object-cover border-4 border-green-500">
+        <div class="text-center md:text-left">
+            <h1 class="text-4xl font-bold">{{ profile_user.first_name }} {{ profile_user.last_name }}</h1>
+            <p class="text-xl text-gray-500">@{{ profile_user.username }}</p>
+            <p class="text-gray-700 mt-4 max-w-xl">{{ profile_user.bio|default:"Este usuário ainda não escreveu uma biografia." }}</p>
+            {% if profile_user == user %}
+                <a href="{% url 'users:profile_update' %}" class="inline-block mt-4 bg-gray-200 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-300">Editar Perfil</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Seção de Posts -->
+    <div class="mt-12">
+        <h2 class="text-3xl font-bold mb-6">Publicações de {{ profile_user.username }}</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for post in user_posts %}
+                {% include 'blog/partials/post_card.html' %}
+            {% empty %}
+                <p class="col-span-full text-gray-500">Este usuário ainda não publicou nada.</p>
+            {% endfor %}
+        </div>
+    </div>
+    
+    <!-- Seção de Posts Salvos (visível apenas para o próprio usuário) -->
+    {% if profile_user == user and saved_posts %}
+    <div class="mt-12">
+        <h2 class="text-3xl font-bold mb-6">Meus Posts Salvos</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for post in saved_posts %}
+                {% include 'blog/partials/post_card.html' %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

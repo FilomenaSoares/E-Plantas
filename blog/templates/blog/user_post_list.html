@@ -1,0 +1,40 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Meus Posts | E-Plantas{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-6 py-12">
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-4xl font-bold">Meus Posts</h1>
+        <a href="{% url 'blog:post_create' %}" class="bg-green-600 text-white font-bold py-3 px-5 rounded-lg hover:bg-green-700 transition">
+            + Criar Novo Post
+        </a>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-lg p-6">
+        {% for post in posts %}
+            <div class="flex items-center justify-between border-b py-4">
+                <div>
+                    <a href="{% url 'blog:post_detail' post.id %}" class="text-xl font-semibold text-gray-800 hover:text-green-600">{{ post.title }}</a>
+                    <p class="text-sm text-gray-500 mt-1">
+                        Status: 
+                        {% if post.status == 'PUBLISHED' %}
+                            <span class="font-semibold text-green-600">Publicado</span>
+                        {% elif post.status == 'PENDING' %}
+                            <span class="font-semibold text-yellow-600">Pendente de Revisão</span>
+                        {% else %}
+                            <span class="font-semibold text-gray-600">Rascunho</span>
+                        {% endif %}
+                    </p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="{% url 'blog:post_update' post.id %}" class="text-blue-500 hover:underline">Editar</a>
+                    <a href="{% url 'blog:post_delete' post.id %}" class="text-red-500 hover:underline">Apagar</a>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-center text-gray-500 py-8">Você ainda não criou nenhum post.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

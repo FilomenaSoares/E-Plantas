@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'categoria',
+    'core',
+    'blog',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -81,31 +83,16 @@ DATABASES = {
 }
 
 
-# Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
-
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
+# Password validation (desativado para aceitar qualquer senha)
+AUTH_PASSWORD_VALIDATORS = []
 
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pt-br'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Cuiaba'
 
 USE_I18N = True
 
@@ -116,9 +103,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR/"static"
+STATIC_ROOT = BASE_DIR / "static"
 STATICFILES_DIRS = ['plantas/static']
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# Modelo de usuário personalizado
+AUTH_USER_MODEL = 'users.CustomUser'
+
+# Redirecionamento após login/logout
+LOGIN_URL = 'users:login'
+LOGIN_REDIRECT_URL = 'core:homepage'
+LOGOUT_REDIRECT_URL = 'core:homepage'

@@ -1,0 +1,96 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ post.title }} | E-Plantas{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-6 py-12 max-w-4xl">
+    <article class="bg-white p-8 rounded-lg shadow-lg">
+        {% if post.image %}
+            <img class="w-full h-auto max-h-96 object-cover rounded-lg mb-8" src="{{ post.image.url }}" alt="[Imagem de destaque para {{ post.title }}]">
+        {% endif %}
+
+        {% if post.post_type == 'DICA' and post.category %}
+            <span class="text-green-600 font-semibold">{{ post.category.name }}</span>
+        {% endif %}
+        <h1 class="text-4xl md:text-5xl font-bold my-4">{{ post.title }}</h1>
+
+        {% if post.post_type == 'ARTIGO' %}
+            {% if post.author %}
+            <p class="text-lg text-gray-700 mb-2"><strong>Autor(es):</strong> {{ post.author }}</p>
+            {% endif %}
+            <p class="text-gray-500 mb-4">Publicado em {{ post.published_date|date:"d \d\e F \d\e Y" }}</p>
+            
+            {% if post.summary %}
+            <div class="bg-gray-100 p-4 rounded-lg mb-6 border-l-4 border-green-500">
+                <h2 class="text-xl font-semibold mb-2">Resumo</h2>
+                <p class="text-gray-800 italic">{{ post.summary }}</p>
+            </div>
+            {% endif %}
+
+            {% if post.pdf_file %}
+            <a href="{{ post.pdf_file.url }}" target="_blank" class="inline-block bg-red-600 text-white font-bold py-3 px-5 rounded-lg hover:bg-red-700 transition duration-300 mb-8 shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+                Baixar Artigo em PDF
+            </a>
+            {% endif %}
+        {% else %}
+            <p class="text-gray-500 mb-8">Publicado em {{ post.published_date|date:"d \d\e F \d\e Y" }}</p>
+        {% endif %}
+        
+        <!-- NOVA SEÇÃO DE INTERAÇÃO -->
+        <div class="flex items-center space-x-6 border-t border-b py-4 my-6">
+            <!-- Curtir -->
+            <form action="{% url 'blog:like_post' post.pk %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="flex items-center space-x-2 text-gray-600 hover:text-red-500">
+                    <svg class="w-6 h-6 {% if user in post.likes.all %}text-red-500{% endif %}" fill="{% if user in post.likes.all %}currentColor{% else %}none{% endif %}" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 016.364 0L12 7.636l1.318-1.318a4.5 4.5 0 116.364 6.364L12 20.364l-7.682-7.682a4.5 4.5 0 010-6.364z"></path></svg>
+                    <span>{{ post.likes.count }} Curtida(s)</span>
+                </button>
+            </form>
+            <!-- Salvar -->
+            <form action="{% url 'blog:save_post' post.pk %}" method="POST">
+                {% csrf_token %}
+                <button type="submit" class="flex items-center space-x-2 text-gray-600 hover:text-blue-500">
+                    <svg class="w-6 h-6 {% if user in post.saves.all %}text-blue-500{% endif %}" fill="{% if user in post.saves.all %}currentColor{% else %}none{% endif %}" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
+                    <span>Salvar</span>
+                </button>
+            </form>
+        </div>
+
+        <!-- Conteúdo Principal -->
+        <h2 class="text-2xl font-semibold border-b pb-2 mb-4">
+            {% if post.post_type == 'ARTIGO' %}Introdução{% else %}Conteúdo Completo{% endif %}
+        </h2>
+        <div class="prose lg:prose-xl max-w-none text-gray-800">
+            {{ post.content|linebreaks }}
+        </div>
+
+        <!-- NOVA SEÇÃO DE COMENTÁRIOS -->
+        <div class="mt-8">
+            <h2 class="text-2xl font-bold mb-4">Comentários ({{ comments.count }})</h2>
+            {% if user.is_authenticated %}
+                <form method="post" class="mb-6">
+                    {% csrf_token %}
+                    {{ comment_form }}
+                    <button type="submit" class="mt-2 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700">Comentar</button>
+                </form>
+            {% else %}
+                <p class="mb-6">Você precisa <a href="{% url 'users:login' %}?next={{request.path}}" class="text-green-600 underline">fazer login</a> para comentar.</p>
+            {% endif %}
+            
+            <div class="space-y-4">
+                {% for comment in comments %}
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <p class="text-gray-800">{{ comment.body }}</p>
+                        <p class="text-xs text-gray-500 mt-2">Por <a href="{{ comment.author.get_absolute_url }}" class="font-semibold hover:underline">{{ comment.author.username }}</a> em {{ comment.created_at|date:"d/m/Y" }}</p>
+                    </div>
+                {% empty %}
+                    <p class="text-gray-500">Seja o primeiro a comentar!</p>
+                {% endfor %}
+            </div>
+        </div>
+    </article>
+</div>
+{% endblock %}

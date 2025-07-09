@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Moderação de Posts | E-Plantas{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-6 py-12">
+    <h1 class="text-4xl font-bold mb-8">Posts Pendentes de Revisão</h1>
+
+    <div class="bg-white rounded-lg shadow-lg p-6">
+        {% for post in posts %}
+            <div class="flex flex-col sm:flex-row items-center justify-between border-b py-4">
+                <div class="mb-4 sm:mb-0">
+                    <a href="{% url 'blog:post_detail' post.id %}" target="_blank" class="text-xl font-semibold text-gray-800 hover:text-green-600">{{ post.title }}</a>
+                    <p class="text-sm text-gray-500 mt-1">
+                        Enviado por: <strong>{{ post.author.username }}</strong> em {{ post.published_date|date:"d/m/Y" }}
+                    </p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="{% url 'blog:approve_post' post.pk %}" class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition">Aprovar</a>
+                    <a href="{% url 'blog:reject_post' post.pk %}" class="bg-yellow-500 text-white py-2 px-4 rounded-lg hover:bg-yellow-600 transition">Rejeitar</a>
+                </div>
+            </div>
+        {% empty %}
+            <p class="text-center text-gray-500 py-8">Não há posts pendentes de revisão no momento.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
