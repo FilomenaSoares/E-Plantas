@@ -17,18 +17,16 @@ class CustomLoginView(LoginView):
 class CustomLogoutView(LogoutView):
     next_page = reverse_lazy('core:homepage')
 
-# --- NOVAS VIEWS PARA O PERFIL ---
 class ProfileDetailView(DetailView):
     model = CustomUser
     template_name = 'users/profile_detail.html'
     context_object_name = 'profile_user'
-    slug_field = 'username' # Usa o username para buscar o usuário
+    slug_field = 'username' 
     slug_url_kwarg = 'username'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.get_object()
-        # Pega os posts publicados e salvos pelo usuário do perfil
         context['user_posts'] = Post.objects.filter(author=user, status='PUBLISHED')
         context['saved_posts'] = user.saved_posts.all()
         return context
@@ -39,7 +37,6 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'users/profile_update.html'
 
     def get_object(self):
-        # Garante que o usuário só pode editar o seu próprio perfil
         return self.request.user
 
     def get_success_url(self):

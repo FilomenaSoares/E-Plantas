@@ -13,8 +13,6 @@ from django.contrib.auth.decorators import login_required
 
 
 
-# --- Views Públicas (só mostram posts publicados) ---
-
 def article_list_view(request):
     articles = Post.objects.filter(post_type='ARTIGO', status='PUBLISHED')
     context = {
@@ -43,7 +41,6 @@ def post_detail_view(request, post_id):
     comment_form = CommentForm()
 
     if request.method == 'POST':
-        # Lógica para adicionar um novo comentário
         if request.user.is_authenticated:
             comment_form = CommentForm(data=request.POST)
             if comment_form.is_valid():
@@ -62,7 +59,6 @@ def post_detail_view(request, post_id):
     }
     return render(request, 'blog/post_detail.html', context)
 
-# --- Views de Gerenciamento de Posts do Usuário ---
 
 class UserPostListView(LoginRequiredMixin, ListView):
     model = Post
@@ -112,7 +108,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         post = self.get_object()
         return self.request.user == post.author
 
-# --- Views de Moderação ---
+# moderação
 
 def is_moderator(user):
     return user.is_authenticated and user.role == 'MODERATOR'

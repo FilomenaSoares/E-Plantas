@@ -2,7 +2,6 @@ from django import forms
 from .models import Post, Comment
 
 class PostForm(forms.ModelForm):
-    # ... (seu PostForm existente) ...
     class Meta:
         model = Post
         fields = ['title', 'post_type', 'content', 'image', 'category', 'summary', 'pdf_file']

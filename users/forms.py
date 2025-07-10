@@ -8,7 +8,6 @@ class CustomUserCreationForm(UserCreationForm):
         fields = ('username', 'email', 'first_name', 'last_name')
 
 class ProfileUpdateForm(forms.ModelForm):
-    """ NOVO FORMULÁRIO para editar o perfil do usuário. """
     class Meta:
         model = CustomUser
         fields = ['first_name', 'last_name', 'email', 'profile_picture', 'bio']

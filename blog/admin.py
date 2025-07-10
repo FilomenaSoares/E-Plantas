@@ -1,5 +1,3 @@
-# Em blog/admin.py
-
 from django.contrib import admin
 from .models import PostCategory, Post
 
@@ -9,7 +7,6 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ('title', 'content', 'author')
     date_hierarchy = 'published_date'
 
-    # Organiza os campos em seções para melhor usabilidade
     fieldsets = (
         ('Informações Gerais', {
             'fields': ('title', 'post_type', 'is_featured', 'image')
@@ -19,7 +16,7 @@ class PostAdmin(admin.ModelAdmin):
             'description': 'Para Artigos, este campo pode ser usado como uma introdução ou chamada.'
         }),
         ('Detalhes do Artigo Científico', {
-            'classes': ('collapse',), # Começa recolhido
+            'classes': ('collapse',), 
             'fields': ('author', 'summary', 'pdf_file'),
             'description': 'Preencha estes campos apenas se o "Tipo de Post" for "Artigo Científico".'
         }),

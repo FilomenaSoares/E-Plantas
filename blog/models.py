@@ -1,9 +1,7 @@
-# Arquivo: blog/models.py
-
 from django.db import models
-from django.conf import settings # Importa as configurações para referenciar o CustomUser
+from django.conf import settings 
 
-# Modelo para as categorias dos posts
+#categorias dos posts
 class PostCategory(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="Nome da Categoria")
     slug = models.SlugField(max_length=100, unique=True, help_text="Usado para URLs amigáveis.")
@@ -16,14 +14,15 @@ class PostCategory(models.Model):
     def __str__(self):
         return self.name
 
-# Modelo para os posts (Artigos e Dicas)
+#artigos e dicas
 class Post(models.Model):
     class PostStatus(models.TextChoices):
         DRAFT = "DRAFT", "Rascunho"
         PENDING_REVIEW = "PENDING", "Pendente de Revisão"
         PUBLISHED = "PUBLISHED", "Publicado"
 
-    POST_TYPE_CHOICES = [('ARTIGO', 'Artigo Científico'), ('DICA', 'Dica de Cultivo')]
+    POST_TYPE_CHOICES = [('ARTIGO', 'Artigo Científico'),
+                          ('DICA', 'Dica de Cultivo')]
 
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL,

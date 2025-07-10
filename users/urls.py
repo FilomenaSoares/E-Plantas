@@ -7,7 +7,6 @@ urlpatterns = [
     path('register/', SignUpView.as_view(), name='register'),
     path('login/', CustomLoginView.as_view(), name='login'),
     path('logout/', CustomLogoutView.as_view(), name='logout'),
-    # --- NOVAS URLS PARA O PERFIL ---
     path('perfil/editar/', ProfileUpdateView.as_view(), name='profile_update'),
     path('perfil/<str:username>/', ProfileDetailView.as_view(), name='profile'),
 ]

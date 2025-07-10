@@ -10,7 +10,6 @@ class CustomUser(AbstractUser):
 
     role = models.CharField(max_length=50, choices=Role.choices, default=Role.COMMON, verbose_name="Papel")
     
-    # --- NOVOS CAMPOS PARA O PERFIL ---
     profile_picture = models.ImageField(
         upload_to='profile_pics/', 
         default='profile_pics/default.jpg', 

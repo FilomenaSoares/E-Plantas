@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container mx-auto px-6 py-12">
-    <!-- Seção do Perfil -->
+    <!-- editar perfil -->
     <div class="bg-white p-8 rounded-lg shadow-lg flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-8">
         <img src="{{ profile_user.profile_picture.url }}" alt="[Foto de perfil de {{ profile_user.username }}]" class="w-32 h-32 rounded-full object-cover border-4 border-green-500">
         <div class="text-center md:text-left">
@@ -17,7 +17,6 @@
         </div>
     </div>
 
-    <!-- Seção de Posts -->
     <div class="mt-12">
         <h2 class="text-3xl font-bold mb-6">Publicações de {{ profile_user.username }}</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -29,7 +28,7 @@
         </div>
     </div>
     
-    <!-- Seção de Posts Salvos (visível apenas para o próprio usuário) -->
+    <!-- posts salvos-->
     {% if profile_user == user and saved_posts %}
     <div class="mt-12">
         <h2 class="text-3xl font-bold mb-6">Meus Posts Salvos</h2>

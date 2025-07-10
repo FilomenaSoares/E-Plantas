@@ -39,9 +39,9 @@
             <p class="text-gray-500 mb-8">Publicado em {{ post.published_date|date:"d \d\e F \d\e Y" }}</p>
         {% endif %}
         
-        <!-- NOVA SEÇÃO DE INTERAÇÃO -->
+   
         <div class="flex items-center space-x-6 border-t border-b py-4 my-6">
-            <!-- Curtir -->
+            <!-- curtir -->
             <form action="{% url 'blog:like_post' post.pk %}" method="POST">
                 {% csrf_token %}
                 <button type="submit" class="flex items-center space-x-2 text-gray-600 hover:text-red-500">
@@ -49,7 +49,7 @@
                     <span>{{ post.likes.count }} Curtida(s)</span>
                 </button>
             </form>
-            <!-- Salvar -->
+            <!-- salvar -->
             <form action="{% url 'blog:save_post' post.pk %}" method="POST">
                 {% csrf_token %}
                 <button type="submit" class="flex items-center space-x-2 text-gray-600 hover:text-blue-500">
@@ -59,7 +59,7 @@
             </form>
         </div>
 
-        <!-- Conteúdo Principal -->
+        <!-- conteudo principal -->
         <h2 class="text-2xl font-semibold border-b pb-2 mb-4">
             {% if post.post_type == 'ARTIGO' %}Introdução{% else %}Conteúdo Completo{% endif %}
         </h2>
@@ -67,7 +67,7 @@
             {{ post.content|linebreaks }}
         </div>
 
-        <!-- NOVA SEÇÃO DE COMENTÁRIOS -->
+        <!-- comentarios -->
         <div class="mt-8">
             <h2 class="text-2xl font-bold mb-4">Comentários ({{ comments.count }})</h2>
             {% if user.is_authenticated %}
