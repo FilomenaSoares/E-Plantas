@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}E-Plantas{% endblock %}</title>
+    <title>{% block title %}BitPlant{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="//unpkg.com/alpinejs" defer></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,9 +19,9 @@
     <nav class="bg-white shadow-md sticky top-0 z-50" x-data="{ open: false }">
         <div class="container mx-auto px-6 py-3">
             <div class="flex justify-between items-center">
-                <a href="{% url 'core:homepage' %}" class="text-2xl font-bold text-green-700">E-Plantas</a>
+                <a href="{% url 'core:homepage' %}" class="text-2xl font-bold text-green-700">BitPlant</a>
                 
-                <!-- Links para Desktop -->
+                
                 <div class="hidden md:flex space-x-6 items-center">
                     <a href="{% url 'core:homepage' %}" class="text-gray-600 hover:text-green-600">Home</a>
                     <a href="{% url 'blog:article_list' %}" class="text-gray-600 hover:text-green-600">Artigos</a>
@@ -43,7 +43,7 @@
                     {% endif %}
                 </div>
                 
-                <!-- Botão do Menu Mobile -->
+               
                 <div class="md:hidden">
                     <button @click="open = !open" class="text-gray-600 focus:outline-none">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
@@ -51,7 +51,7 @@
                 </div>
             </div>
             
-            <!-- Menu Mobile -->
+            
             <div x-show="open" @click.away="open = false" class="md:hidden mt-3">
                 <a href="{% url 'core:homepage' %}" class="block py-2 px-4 text-sm text-gray-600 hover:bg-green-50 rounded">Home</a>
                 <a href="{% url 'blog:article_list' %}" class="block py-2 px-4 text-sm text-gray-600 hover:bg-green-50 rounded">Artigos</a>
